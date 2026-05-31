@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>YANZZ H4X - Premium Gaming Tools</title>
+<!-- FONTS & LIBRARY -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<style>
+    /* ========== SYSTEM DESIGN & MODERN PALETTE ========== */
+    :root {
+        --bg-deep: #05020a; 
+        --bg-card: rgba(18, 10, 32, 0.65);
+        --primary-purple: #7b2cbf; 
+        --glow-purple: #9d4edd;
+        --light-purple: #c77dff;
+        --neon: #e0aaff; 
+        --neon-accent: #3c096c;
+        --neon-dim: rgba(157, 78, 221, 0.15);
+        --danger: #ff007f;
+        --glass: rgba(10, 4, 22, 0.75);
+        --glass-border: rgba(157, 78, 221, 0.25);
+        --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        --font-primary: 'Rajdhani', sans-serif;
+        --font-display: 'Orbitron', sans-serif;
+    }
+    
+    * { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box; 
+        user-select: none; 
+        font-variant-emoji: text !important; 
+        touch-action: manipulation; 
+    }
+    
+    body { 
+        background-color: var(--bg-deep); 
+        color: #f3f0f7; 
+        font-family: var(--font-primary); 
+        overflow-x: hidden; 
+        padding-top: 90px; 
+        padding-bottom: 50px;
+        position: relative;
+    }
+
+    /* Ambient Glow Backgrounds */
+    body::before {
+        content: "";
+        position: fixed;
+        top: -10%;
+        left: -10%;
+        width: 50%;
+        height: 50%;
+        background: radial-gradient(circle, rgba(123, 44, 191, 0.15) 0%, transparent 70%);
+        z-index: -2;
+        pointer-events: none;
+    }
+
+    body::after {
+        content: "";
+        position: fixed;
+        bottom: -10%;
+        right: -10%;
+        width: 50%;
+        height: 50%;
+        background: radial-gradient(circle, rgba(157, 78, 221, 0.12) 0%, transparent 70%);
+        z-index: -2;
+        pointer-events: none;
+    }
+    
+    ::-webkit-scrollbar { 
+        width: 6px; 
+    }
+    ::-webkit-scrollbar-track { 
+        background: var(--bg-deep); 
+    }
+    ::-webkit-scrollbar-thumb { 
+        background: #240046; 
+        border-radius: 10px; 
+        border: 1px solid var(--glass-border);
+    }
+    ::-webkit-scrollbar-thumb:hover { 
+        background: var(--glow-purple); 
+    }
+
+    .custom-scroll::-webkit-scrollbar { 
+        width: 4px; 
+    }
+    .custom-scroll::-webkit-scrollbar-track { 
+        background: transparent; 
+    }
+    .custom-scroll::-webkit-scrollbar-thumb { 
+        background: #3c096c; 
+        border-radius: 10px; 
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover { 
+        background: var(--light-purple); 
+    }
+
+    #xploits-bg { 
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        z-index: -1; 
+        opacity: 0.18; 
+        pointer-events: none; 
+    }
+
+    /* ========== NAVBAR (GLASSMORPHISM PREMIUM) ========== */
+    nav { 
+        position: fixed; 
+        top: 0; 
+        width: 100%; 
+        background: var(--glass); 
+        backdrop-filter: blur(25px); 
+        -webkit-backdrop-filter: blur(25px); 
+        border-bottom: 1px solid var(--glass-border); 
+        z-index: 1000; 
+        padding: 16px 8%; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        box-shadow: 0 10px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05); 
+        transition: var(--transition);
+    }
+    
+    .logo { 
+        font-family: var(--font-display); 
+        color: #fff; 
+        font-size: 24px; 
+        font-weight: 900; 
+        text-shadow: 0 0 12px rgba(157, 78, 221, 0.8); 
+        text-decoration: none; 
+        letter-spacing: 3px; 
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .logo span {
+        background: linear-gradient(135deg, #fff, var(--light-purple));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* ========== LAYOUT CONTAINER ========== */
+    .container { 
+        max-width: 1200px; 
+        margin: auto; 
+        padding: 10px 24px; 
+        position: relative; 
+        z-index: 10; 
+    }
+    
+    /* ========== HEADER TITLE (FUTURISTIC RADIAL BG) ========== */
+    .header-title { 
+        text-align: center; 
+        margin-bottom: 25px; 
+        padding: 35px 30px; 
+        background: radial-gradient(ellipse at top, rgba(90, 24, 154, 0.2), rgba(10, 4, 22, 0.9)); 
+        border-radius: 20px; 
+        border: 1px solid var(--glass-border); 
+        backdrop-filter: blur(15px); 
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.05);
+    }
+    .header-title h1 { 
+        font-size: 38px; 
+        font-family: var(--font-display); 
+        font-weight: 900; 
+        background: linear-gradient(135deg, #ffffff 10%, #c77dff 50%, #7b2cbf 90%); 
+        -webkit-background-clip: text; 
+        -webkit-text-fill-color: transparent; 
+        letter-spacing: 2px; 
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        text-shadow: 0 0 30px rgba(157, 78, 221, 0.3);
+    }
+
+    /* ========== SEARCH SECTION (HIGH-TECH PANEL) ========== */
+    .search-section { 
+        padding: 24px; 
+        background: rgba(15, 8, 30, 0.85); 
+        border-radius: 20px; 
+        border: 1px solid var(--glass-border); 
+        margin-bottom: 30px; 
+        box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    }
+    .search-title { 
+        color: #fff; 
+        font-size: 1.1rem; 
+        font-weight: 700; 
+        margin-bottom: 18px; 
+        display: flex; 
+        align-items: center; 
+        gap: 8px; 
+        font-family: var(--font-display); 
+        letter-spacing: 1px;
+    }
+    .search-title i { 
+        color: var(--glow-purple); 
+        filter: drop-shadow(0 0 5px var(--glow-purple));
+    }
+    .search-container { 
+        position: relative; 
+        margin-bottom: 20px; 
+        display: flex; 
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    .search-container input { 
+        width: 100%; 
+        padding: 16px 20px; 
+        background: rgba(5, 2, 12, 0.9); 
+        border: 1px solid rgba(157, 78, 221, 0.3); 
+        border-radius: 12px 0 0 12px; 
+        font-size: 1rem; 
+        outline: none; 
+        color: #fff; 
+        font-family: var(--font-primary); 
+        transition: var(--transition);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+    .search-container input:focus { 
+        border-color: var(--glow-purple); 
+        box-shadow: inset 0 0 10px rgba(157, 78, 221, 0.2);
+    }
+    .search-container .search-btn { 
+        background: linear-gradient(135deg, var(--primary-purple), var(--glow-purple)); 
+        border: none; 
+        padding: 0 25px; 
+        border-radius: 0 12px 12px 0; 
+        color: #fff; 
+        cursor: pointer; 
+        font-size: 1.1rem; 
+        transition: var(--transition); 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .search-container .search-btn:hover { 
+        filter: brightness(1.2);
+        box-shadow: 0 0 15px var(--glow-purple);
+    }
+    
+    /* ========== CATEGORY BUTTONS (HORIZONTAL SLIDER) ========== */
+    .category-container { 
+        display: flex; 
+        gap: 10px; 
+        overflow-x: auto; 
+        padding-bottom: 8px; 
+        scrollbar-width: none; 
+        scroll-behavior: smooth;
+    }
+    .category-container::-webkit-scrollbar { 
+        display: none; 
+    }
+    .category-btn { 
+        padding: 10px 20px; 
+        background: rgba(255, 255, 255, 0.03); 
+        border: 1px solid rgba(157, 78, 221, 0.2); 
+        color: #9d9da3; 
+        border-radius: 10px; 
+        font-size: 0.85rem; 
+        font-weight: 700; 
+        white-space: nowrap; 
+        cursor: pointer; 
+        transition: var(--transition); 
+        font-family: var(--font-display); 
+        letter-spacing: 0.5px;
+    }
+    .category-btn:hover {
+        background: rgba(157, 78, 221, 0.1);
+        color: #fff;
+        border-color: var(--light-purple);
+    }
+    .category-btn.active { 
+        background: linear-gradient(135deg, var(--primary-purple), var(--glow-purple)); 
+        color: #fff; 
+        border-color: var(--neon); 
+        box-shadow: 0 0 15px rgba(157, 78, 221, 0.5), inset 0 1px 0 rgba(255,255,255,0.2); 
+    }
+
+    /* ========== PRODUCT GRID & CARDS (GAMING LOOK) ========== */
+    .product-grid { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 20px; 
+        padding: 5px; 
+    }
+    .product-card { 
+        background: var(--bg-card); 
+        padding: 16px; 
+        border-radius: 18px; 
+        border: 1px solid var(--glass-border); 
+        display: flex; 
+        flex-direction: column; 
+        position: relative; 
+        transition: var(--transition); 
+        cursor: pointer; 
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    /* Image wrap inside product card to keep ratio cinematic */
+    .product-card-img-wrap {
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 12px;
+        aspect-ratio: 16/10;
+        background: #120a20;
+    }
+    .product-card-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    /* Hover effect on card */
+    .product-card:hover { 
+        border-color: var(--light-purple); 
+        box-shadow: 0 15px 35px var(--neon-dim), 0 0 20px rgba(157, 78, 221, 0.15); 
+        transform: translateY(-5px); 
+    }
+    .product-card:hover .product-card-img-wrap img {
+        transform: scale(1.08);
+    }
+    
+    .product-card h3 { 
+        font-size: 1.1rem; 
+        margin-top: 5px; 
+        margin-bottom: 15px; 
+        min-height: 2.2em; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        line-height: 1.3; 
+        font-family: var(--font-display); 
+        text-align: center; 
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 0.5px;
+        transition: var(--transition);
+    }
+    .product-card:hover h3 {
+        color: var(--light-purple);
+        text-shadow: 0 0 10px rgba(199, 125, 255, 0.3);
+    }
+    
+    /* Platform Badges */
+    .product-card .tag { 
+        position: absolute; 
+        top: 10px; 
+        right: 10px; 
+        font-size: 0.65rem; 
+        padding: 5px 12px; 
+        border-radius: 8px; 
+        z-index: 10; 
+        font-weight: 800; 
+        text-transform: uppercase; 
+        font-family: var(--font-display); 
+        background: var(--primary-purple); 
+        color: #fff; 
+        border: 1px solid var(--light-purple);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        letter-spacing: 0.5px;
+    }
+    .product-card .tag.android { 
+        background: linear-gradient(135deg, #11998e, #38ef7d); 
+        color: #03200a; 
+        border-color: #a3ffc1; 
+    }
+    .product-card .tag.ios { 
+        background: linear-gradient(135deg, #bdc3c7, #2c3e50); 
+        color: #fff; 
+        border-color: #fff; 
+    }
+    .product-card .tag.pc { 
+        background: linear-gradient(135deg, #00c6ff, #0072ff); 
+        color: #fff; 
+        border-color: #8adeff; 
+    }
+
+    /* BUY BUTTON PREMIUM */
+    .buy-btn { 
+        font-size: 0.85rem; 
+        padding: 12px 10px; 
+        width: 100%; 
+        justify-content: center; 
+        background: transparent; 
+        color: var(--light-purple); 
+        border: 2px solid var(--primary-purple); 
+        border-radius: 10px; 
+        font-weight: 800; 
+        cursor: pointer; 
+        font-family: var(--font-display); 
+        transition: var(--transition); 
+        text-align: center; 
+        display: block; 
+        letter-spacing: 1px;
+        box-shadow: inset 0 0 0 0 var(--primary-purple);
+    }
+    .product-card:hover .buy-btn { 
+        background: linear-gradient(135deg, var(--primary-purple), var(--glow-purple)); 
+        color: #fff; 
+        border-color: var(--light-purple);
+        box-shadow: 0 5px 15px rgba(123, 44, 191, 0.4);
+    }
+
+    /* ========== MODAL SYSTEM (ULTRA PREMIUM GLOW) ========== */
+    .modal { 
+        display:none; 
+        position:fixed; 
+        top:0; 
+        left:0; 
+        width:100%; 
+        height:100%; 
+        background: rgba(5, 2, 12, 0.9); 
+        z-index:2000; 
+        align-items:center; 
+        justify-content:center; 
+        backdrop-filter: blur(20px); 
+        -webkit-backdrop-filter: blur(20px); 
+        padding: 20px; 
+        transition: var(--transition);
+    }
+    .modal-content { 
+        background: linear-gradient(150deg, rgba(20, 10, 35, 0.95) 0%, rgba(10, 4, 20, 0.98) 100%); 
+        padding: 30px 25px; 
+        border-radius: 24px; 
+        border: 1px solid var(--light-purple); 
+        width: 100%; 
+        max-width: 480px; 
+        box-shadow: 0 25px 50px rgba(0,0,0,0.8), 0 0 30px rgba(157, 78, 221, 0.2); 
+        animation: modalPop 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+        max-height: 90vh; 
+        overflow-y: auto; 
+    }
+    @keyframes modalPop { 
+        0% { transform: scale(0.92); opacity: 0; } 
+        100% { transform: scale(1); opacity: 1; } 
+    }
+    .modal-content::-webkit-scrollbar { 
+        width: 5px; 
+    }
+    .modal-content::-webkit-scrollbar-thumb { 
+        background: var(--light-purple); 
+        border-radius: 10px; 
+    }
+
+    /* RADIO OPTION CONTAINER */
+    .radio-container { 
+        display: flex; 
+        align-items: center; 
+        margin-bottom: 12px; 
+        background: rgba(255, 255, 255, 0.03); 
+        padding: 14px 18px; 
+        border-radius: 12px; 
+        border: 1px solid rgba(157, 78, 221, 0.15); 
+        cursor: pointer; 
+        transition: var(--transition); 
+    }
+    .radio-container:hover { 
+        background: rgba(157, 78, 221, 0.08); 
+        border-color: var(--light-purple); 
+    }
+    .radio-container input[type="radio"] { 
+        appearance: none; 
+        -webkit-appearance: none; 
+        width: 18px; 
+        height: 18px; 
+        border: 2px solid rgba(157, 78, 221, 0.5); 
+        border-radius: 50%; 
+        margin-right: 14px; 
+        outline: none; 
+        position: relative; 
+        cursor: pointer; 
+        flex-shrink: 0; 
+        transition: var(--transition);
+    }
+    .radio-container input[type="radio"]:checked { 
+        border-color: var(--light-purple); 
+    }
+    .radio-container input[type="radio"]:checked::before { 
+        content: ''; 
+        position: absolute; 
+        top: 50%; 
+        left: 50%; 
+        transform: translate(-50%, -50%); 
+        width: 10px; 
+        height: 10px; 
+        background: var(--light-purple); 
+        border-radius: 50%; 
+        box-shadow: 0 0 10px var(--light-purple); 
+    }
+    .radio-label { 
+        flex: 1; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        font-family: var(--font-display); 
+        font-size: 13px; 
+        color: #e0dced; 
+        font-weight: 600;
+    }
+
+    input[type="text"] { 
+        height: 50px; 
+        width: 100%; 
+        padding: 0 18px; 
+        background: rgba(5, 2, 12, 0.8); 
+        border: 1px solid rgba(157, 78, 221, 0.3); 
+        color: #fff; 
+        border-radius: 10px; 
+        margin-bottom: 20px; 
+        font-family: var(--font-primary); 
+        font-size: 16px; 
+        font-weight: 600; 
+        outline: none; 
+        transition: var(--transition); 
+        box-sizing: border-box; 
+    }
+    input[type="text"]:focus { 
+        border-color: var(--light-purple); 
+        box-shadow: 0 0 15px rgba(157, 78, 221, 0.4); 
+    }
+
+    /* ========== NAVIGATION SIDE MENU (SLIDE DRAWER) ========== */
+    .menu-toggle { 
+        display: flex; 
+        flex-direction: column; 
+        cursor: pointer; 
+        gap: 5px; 
+        z-index: 10001; 
+    }
+    .menu-toggle span { 
+        width: 25px; 
+        height: 3px; 
+        background: var(--glow-purple); 
+        border-radius: 2px; 
+        transition: var(--transition); 
+    }
+    .nav-menu { 
+        position: fixed; 
+        top: 85px; 
+        right: -300px; 
+        width: 260px; 
+        background: rgba(15, 8, 30, 0.95); 
+        border: 1px solid var(--glass-border); 
+        border-radius: 16px; 
+        padding: 20px; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 12px; 
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+        z-index: 9999; 
+        box-shadow: 0 15px 40px rgba(0,0,0,0.8); 
+        backdrop-filter: blur(15px); 
+    }
+    .nav-menu.active { 
+        right: 8%; 
+    }
+    .nav-menu a { 
+        color: #f3f0f7; 
+        text-decoration: none; 
+        font-family: var(--font-display); 
+        font-size: 12px; 
+        font-weight: 700; 
+        background: rgba(255, 255, 255, 0.03); 
+        padding: 12px 15px; 
+        border-radius: 10px; 
+        border: 1px solid rgba(157, 78, 221, 0.15); 
+        text-align: left; 
+        transition: var(--transition); 
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .nav-menu a i {
+        color: var(--light-purple);
+        font-size: 14px;
+    }
+    .nav-menu a:hover { 
+        background: linear-gradient(135deg, var(--primary-purple), var(--glow-purple)); 
+        color: #fff; 
+        border-color: var(--neon); 
+        box-shadow: 0 5px 15px rgba(157, 78, 221, 0.4); 
+    }
+
+    /* ========== LIGHT MODE STYLE FOR ALL ========== */
+    body.light-mode { 
+        background-color: #f4effa; 
+        color: #24143a; 
+    }
+    body.light-mode::before, body.light-mode::after {
+        opacity: 0.05;
+    }
+    body.light-mode nav { 
+        background: rgba(255, 255, 255, 0.85); 
+        border-bottom: 1px solid rgba(123, 44, 191, 0.15); 
+        box-shadow: 0 5px 25px rgba(0,0,0,0.05); 
+    }
+    body.light-mode .nav-menu { 
+        background: rgba(255, 255, 255, 0.95); 
+        border: 1px solid rgba(123, 44, 191, 0.15); 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+    }
+    body.light-mode .nav-menu a { 
+        color: #24143a; 
+        border-color: rgba(123, 44, 191, 0.15); 
+        background: #fdfbfe; 
+    }
+    body.light-mode .nav-menu a:hover { 
+        background: var(--primary-purple); 
+        color: #fff; 
+    }
+    body.light-mode .search-section { 
+        background: #fff; 
+        border-color: rgba(123, 44, 191, 0.15); 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    }
+    body.light-mode .search-container input { 
+        background: #faf7fd; 
+        color: #24143a; 
+        border-color: rgba(123, 44, 191, 0.2); 
+    }
+    body.light-mode .category-btn { 
+        background: #faf7fd; 
+        border-color: rgba(123, 44, 191, 0.2); 
+        color: #665c78; 
+    }
+    body.light-mode .category-btn.active { 
+        background: linear-gradient(135deg, var(--primary-purple), var(--glow-purple)); 
+        color: #fff; 
+        border-color: var(--primary-purple); 
+    }
+    body.light-mode .product-card { 
+        background: #fff; 
+        border-color: rgba(123, 44, 191, 0.15); 
+        box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    }
+    body.light-mode .product-card h3 {
+        color: #24143a;
+    }
+    body.light-mode .product-card:hover { 
+        border-color: var(--primary-purple); 
+        box-shadow: 0 10px 25px rgba(123, 44, 191, 0.1); 
+    }
+    body.light-mode .buy-btn { 
+        background: #faf7fd; 
+        color: var(--primary-purple); 
+        border: 2px solid var(--primary-purple); 
+    }
+    body.light-mode .product-card:hover .buy-btn { 
+        background: linear-gradient(135deg, var(--primary-purple), var(--glow-purple)); 
+        color: #fff; 
+    }
+    body.light-mode .modal-content { 
+        background: #fff; 
+        border-color: var(--primary-purple); 
+        color: #24143a; 
+    }
+    body.light-mode .radio-container { 
+        background: #faf7fd; 
+        border-color: rgba(123, 44, 191, 0.2); 
+    }
+    body.light-mode .radio-container:hover { 
+        background: #f2eafd; 
+        border-color: var(--primary-purple); 
+    }
+    body.light-mode .radio-label { 
+        color: #24143a; 
+    }
+    body.light-mode input[type="text"] { 
+        background: #fff; 
+        color: #24143a; 
+        border-color: rgba(123, 44, 191, 0.3); 
+    }
+    body.light-mode .logo { 
+        color: var(--primary-purple); 
+        text-shadow: none; 
+    }
+    body.light-mode .logo span {
+        background: linear-gradient(135deg, var(--primary-purple), #240046);
+        -webkit-background-clip: text;
+    }
+    body.light-mode .header-title h1 { 
+        background: linear-gradient(135deg, var(--primary-purple) 0%, #240046 100%); 
+        -webkit-background-clip: text; 
+    }
+    body.light-mode .menu-toggle span { 
+        background: var(--primary-purple); 
+    }
+    body.light-mode #xploits-bg { 
+        opacity: 0.15; 
+        filter: invert(0.8); 
+    }
+    body.light-mode .search-title { 
+        color: #24143a; 
+    }
+
+    /* Floating Text Animation Styling */
+    .click-text {
+        position: fixed;
+        pointer-events: none;
+        z-index: 10000;
+        font-family: 'Share Tech Mono', monospace;
+        font-weight: bold;
+        color: var(--light-purple);
+        text-shadow: 0 0 8px var(--glow-purple);
+        animation: floatText 1.2s forwards;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    @keyframes floatText {
+        0% { transform: translateY(0) scale(0.9); opacity: 1; }
+        100% { transform: translateY(-80px) scale(1.1); opacity: 0; }
+    }
+
+    /* ========== RESPONSIVENESS AND TABLET / MOBILE OPTIMIZATION ========== */
+    @media (max-width: 900px) {
+        .product-grid { 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px; 
+        }
+    }
+
+    @media (max-width: 600px) {
+        body { 
+            padding-top: 80px; 
+        }
+        .container {
+            padding: 10px 16px;
+        }
+        .product-grid { 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 10px; 
+        }
+        .product-card {
+            padding: 10px;
+            border-radius: 14px;
+        }
+        .product-card-img-wrap {
+            margin-bottom: 8px;
+        }
+        .product-card h3 { 
+            font-size: 0.85rem; 
+            min-height: 2.2em;
+            margin-bottom: 10px;
+        }
+        .product-card .tag {
+            font-size: 0.55rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+        .buy-btn { 
+            font-size: 0.75rem; 
+            padding: 10px 5px; 
+            border-width: 1.5px;
+        }
+        .header-title {
+            padding: 25px 15px;
+            border-radius: 16px;
+        }
+        .header-title h1 { 
+            font-size: 24px; 
+        }
+        nav { 
+            padding: 14px 5%; 
+        }
+        .logo { 
+            font-size: 18px; 
+        }
+        .search-section {
+            padding: 15px;
+            border-radius: 16px;
+        }
+        .category-btn {
+            padding: 8px 14px;
+            font-size: 0.75rem;
+        }
+    }
+</style>
+<link rel="manifest" href="/manifest.json">
+</head>
+<body oncontextmenu="return false;">
+
+<canvas id="xploits-bg"></canvas>
+
+<nav>
+    <div style="display: flex; align-items: center;">
+        <a class='logo' href='/'><span>YANZZ</span></a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <div onclick="toggleTheme()" style="cursor: pointer; font-size: 18px; color: var(--light-purple); transition: var(--transition);" title="Mode Putih/Gelap">
+            <i class="fa-solid fa-circle-half-stroke"></i>
+        </div>
+        <div class="menu-toggle" onclick="toggleNavMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav>
+
+<div id="nav-menu" class="nav-menu">
+    <a href="https://whatsapp.com/channel/0029VbCVsTYEgGfMtq3JcP37" target="_blank"><i class="fa-solid fa-bullhorn"></i> SALURAN TESTIMONI</a>
+    <a href="https://wa.me/6283891425432" target="_blank"><i class="fa-brands fa-whatsapp"></i> CHAT ADMIN</a>
+</div>
+
+<div class="container">
+    <div class="header-title" data-aos="fade-down">
+        <h1><i class="fas fa-crown"></i> YANZZ H4X</h1>
+        <p style="color: #a59fb1; font-size: 13px; margin-top: 6px; font-weight: 500;">Klik Garis 3 Di Kanan Atas Untuk info lainnya.</p>
+    </div>
+
+    <div style="background: rgba(157, 78, 221, 0.1); border: 1px solid rgba(157, 78, 221, 0.35); padding: 10px 15px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 0 15px rgba(157, 78, 221, 0.15);" data-aos="zoom-in">
+        <marquee direction="left" scrollamount="5" style="color: var(--neon); font-family: var(--font-display); font-size: 12px; font-weight: bold; letter-spacing: 1.5px; display: block; padding-top: 2px;">
+            SELAMAT DATANG DI WEBSITE YANZZ H4X | Premium Gaming Performance Tools
+        </marquee>
+    </div>
+
+    <section class="search-section" data-aos="fade-up">
+        <div class="search-title">
+            <i class="fa-solid fa-fire"></i> CARI PRODUK
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Ketik nama cheat/game...">
+            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div class="category-container" id="categoryList">
+            <button class="category-btn active" data-category="ALL">ALL</button>
+            <button class="category-btn" data-category="FF NON ROOT">FF NON ROOT</button>
+            <button class="category-btn" data-category="FF ROOT">FF ROOT</button>
+            <button class="category-btn" data-category="FF IOS">FF IOS</button>
+            <button class="category-btn" data-category="FF FILE">FF FILE</button>
+        </div>
+    </section>
+
+    <div class="product-grid" id="productList"></div>
+</div>
+
+<div id="payModal" class="modal">
+    <div class="modal-content">
+        <h2 id="modalTitle" style="font-family: var(--font-display); color: var(--light-purple); font-size: 18px; line-height: 1.4; margin-bottom: 20px; text-align: left; letter-spacing: 0.5px; border-bottom: 1px solid rgba(157, 78, 221, 0.2); padding-bottom: 10px;">Nama Produk</h2>
+        <div id="formSection">
+            <form onsubmit="showQRIS(event)">
+                <div style="text-align: left; margin-bottom: 15px;">
+                    <p style="color: #a59fb1; font-size: 13px; margin-bottom: 10px; font-weight: 600;">1. Pilih Durasi:</p>
+                    <div id="variantContainer" class="custom-scroll" style="max-height: 200px; overflow-y: auto; padding-right: 5px; margin-bottom: 15px;"></div>
+                </div>
+                <div style="text-align: left;">
+                    <p style="color: #a59fb1; font-size: 13px; margin-bottom: 10px; font-weight: 600;">2. Nama pemesan:</p>
+                    <input type="text" id="buyer_name" name="buyer_name" placeholder="Masukkan Nama Bebas Anda" required autocomplete="off">
+                </div>
+                <div style="margin-top: 20px;">
+                    <button type="submit" class="buy-btn" style="color:#fff; background: linear-gradient(135deg, var(--primary-purple), var(--glow-purple)); border: none; padding: 14px; font-size: 14px; box-shadow: 0 5px 15px rgba(123, 44, 191, 0.4);">KE HALAMAN PEMBAYARAN</button>
+                </div>
+            </form>
+        </div>
+        <div id="qrisSection" style="display: none; text-align: center;">
+            <p style="color: #e0dced; font-size: 14px; margin-bottom: 18px; font-weight: bold; font-family: var(--font-display);">Scan QRIS di bawah ini untuk membayar:</p>
+            <img src="https://i.ibb.co.com/jvhfbF3J/qr-ID1026479459236-11-04-26-177588212-1775882129599.jpg" alt="QRIS Payment" style="width: 100%; max-width: 260px; border-radius: 16px; margin-bottom: 18px; border: 2px solid var(--light-purple); box-shadow: 0 0 20px rgba(157, 78, 221, 0.3);">
+            <p style="color: #a59fb1; font-size: 12px; margin-bottom: 18px; line-height: 1.5;">Jika sudah transfer, klik tombol di bawah untuk konfirmasi via WhatsApp.</p>
+            <button onclick="confirmToWA()" class="buy-btn" style="color:#000; background: linear-gradient(135deg, #00e676, #00b359); border: none; padding: 14px; font-size: 14px; font-weight: 800; box-shadow: 0 5px 15px rgba(0, 230, 118, 0.3);">KONFIRMASI PEMBAYARAN</button>
+        </div>
+        <a href="javascript:void(0)" style="display:block; margin-top:25px; color:#85828c; text-decoration:none; font-size:12px; font-weight:bold; letter-spacing:1.5px; text-align: center; font-family: var(--font-display); transition: var(--transition);" onclick="closePay()" onmouseover="this.style.color='#ff007f'" onmouseout="this.style.color='#85828c'">✖ BATALKAN</a>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // ========== KONFIGURASI DATA PRODUK DENGAN KATEGORI BARU & URUTAN YANG DISESUAIKAN ==========
+    const productsData = {
+        "remote_panel_yanzx_h4x": {
+            name: "REMOTE PANEL YanzX H4X",
+            platform: "android",
+            game: "FF ROOT",
+            data: [
+                ["1 DAY", "15K"],
+                ["3 DAY", "25K"],
+                ["7 DAY", "35K"],
+                ["15 DAY", "55K"],
+                ["31 DAY", "75K"]
+            ]
+        },
+        "drip_client_non_root": { 
+            name: "DRIP CLIENT NON ROOT", 
+            platform: "android", 
+            game: "FF NON ROOT", 
+            data: [["1 DAY", "15K"], ["3 DAY", "30K"], ["7 DAY", "55K"], ["15 DAY", "90K"], ["30 DAY", "130K"]] 
+        },
+        "hg_cheat": { 
+            name: "HG CHEAT", 
+            platform: "android", 
+            game: "FF NON ROOT", 
+            data: [["1 DAY", "25K"], ["7 DAY", "45K"], ["10 DAY", "55K"], ["30 DAY", "100K"]] 
+        },
+        "prime_hook": { 
+            name: "PRIME HOOK", 
+            platform: "android", 
+            game: "FF NON ROOT", 
+            data: [["1 DAY", "15K"], ["3 DAY", "25K"], ["7 DAY", "50K"]] 
+        },
+        "pato_team_orange": { 
+            name: "PATO TEAM ORANGE", 
+            platform: "android", 
+            game: "FF NON ROOT", 
+            data: [["1 DAY", "35K"], ["3 DAY", "50K"], ["7 DAY", "75K"], ["15 DAY", "120K"], ["30 DAY", "175K"]] 
+        },
+        "br_mods": { 
+            name: "BR MODS", 
+            platform: "android", 
+            game: "FF ROOT", 
+            data: [["1 DAY", "10K"], ["3 DAY", "30K"], ["5 DAY", "40K"], ["7 DAY", "50K"]] 
+        },
+        "lk_team": { 
+            name: "LK TEAM", 
+            platform: "android", 
+            game: "FF ROOT", 
+            data: [["1 DAY", "10K"], ["3 DAY", "30K"], ["5 DAY", "40K"], ["7 DAY", "50K"]] 
+        },
+        "flyon_root": { 
+            name: "FLYON ROOT", 
+            platform: "android", 
+            game: "FF ROOT", 
+            data: [["1 DAY", "12K"], ["7 DAY", "45K"], ["15 DAY", "80K"], ["30 DAY", "120K"]] 
+        },
+        "pato_team_blue": { 
+            name: "PATO TEAM BLUE", 
+            platform: "android", 
+            game: "FF NON ROOT", 
+            data: [["3 DAY", "40K"], ["7 DAY", "75K"], ["15 DAY", "100K"], ["30 DAY", "150K"]] 
+        },
+        "fluorite_ff": { 
+            name: "FLUORITE FF", 
+            platform: "ios", 
+            game: "FF IOS", 
+            data: [["1 DAY", "40K"], ["7 DAY", "140K"], ["30 DAY", "330K"]] 
+        },
+        "gbox_ios": { 
+            name: "GBOX IOS", 
+            platform: "ios", 
+            game: "FF IOS", 
+            data: [["1 YEARS", "90K"]] 
+        }
+    };
+
+    // URL gambar untuk setiap produk yang masih aktif
+    const imageMap = {
+        "remote_panel_yanzx_h4x": "https://i.ibb.co.com/84TLnDhq/file-00000000441c7207af81a3c184df5545.png",
+        "drip_client_non_root": "https://i.ibb.co.com/Kpv6k8Pg/1779593838078.png",
+        "hg_cheat": "https://i.ibb.co.com/233nXbrs/1779595708434.png",
+        "prime_hook": "https://i.ibb.co.com/TDMcHyhW/1779597355722.png",
+        "pato_team_orange": "https://i.ibb.co.com/DH8JWysd/1779596471598.png",
+        "br_mods": "https://i.ibb.co.com/rTnXYnq/1779618176589.png",
+        "lk_team": "https://i.ibb.co.com/hJTMsz4d/1779598151507.png",
+        "flyon_root": "https://i.ibb.co.com/B5f7wXJd/1779597839348.png",
+        "pato_team_blue": "https://i.ibb.co.com/SXdKjg49/1779596748328.png",
+        "fluorite_ff": "https://i.ibb.co.com/C34kkXpD/1779597121396.png",
+        "gbox_ios": "https://i.ibb.co.com/355HPK8c/1779618446272.png"
+    };
+
+    // ========== GENERATE KARTU PRODUK ==========
+    const productList = document.getElementById('productList');
+    productList.innerHTML = '';
+    for (const [key, prod] of Object.entries(productsData)) {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.setAttribute('data-key', key);
+        card.setAttribute('data-game', prod.game.toUpperCase());
+        card.setAttribute('data-name', prod.name.toUpperCase());
+        // Animasi fade-up dihapus agar kartu langsung muncul secara statis & instan
+        card.onclick = () => openVariantModal(key);
+        const imgUrl = imageMap[key] || ''; // fallback kosong
+        card.innerHTML = `
+            <div class="product-card-img-wrap">
+                <img src="${imgUrl}" alt="${prod.name}" onerror="this.src='https://placehold.co/400x250/1e0c28/fff?text=${prod.name}'">
+            </div>
+            <span class="tag ${prod.platform.toLowerCase()}">${prod.platform}</span>
+            <h3>${prod.name}</h3>
+            <button class="buy-btn">BELI SEKARANG</button>
+        `;
+        productList.appendChild(card);
+    }
+
+    // ========== FUNGSI LAINNYA ==========
+    AOS.init({ duration: 800, once: false });
+    const clickPhrases = ["YANZZ H4X", "SYSTEM INJECT", "EXECUTING...", "PREMIUM", "HACKER", "ENCRYPTED", "AUTHORIZED"];
+    document.addEventListener('click', function(e) {
+        const text = document.createElement('div');
+        text.className = 'click-text';
+        text.innerHTML = clickPhrases[Math.floor(Math.random() * clickPhrases.length)];
+        text.style.left = e.clientX + 'px';
+        text.style.top = e.clientY + 'px';
+        document.body.appendChild(text);
+        setTimeout(() => text.remove(), 1200);
+    });
+
+    function toggleTheme() { document.body.classList.toggle('light-mode'); }
+
+    const canvas = document.getElementById('xploits-bg');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+    resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+    const charList = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#@%&*";
+    const fontSize = 14; const drops = Array(Math.floor(window.innerWidth / fontSize)).fill(1);
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(10, 5, 18, 0.08)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#b77dff"; ctx.font = fontSize + "px Orbitron";
+        for (let i = 0; i < drops.length; i++) {
+            const text = charList.charAt(Math.floor(Math.random() * charList.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(drawMatrix, 50);
+
+    function toggleNavMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
+
+    const searchInput = document.getElementById('searchInput');
+    const categoryBtns = document.querySelectorAll('.category-btn');
+    
+    function filterProducts() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+        const productCards = document.querySelectorAll('.product-card');
+        productCards.forEach(card => {
+            const name = card.dataset.name.toLowerCase();
+            const game = card.dataset.game;
+            const matchesSearch = name.includes(searchTerm);
+            const matchesCategory = (activeCategory === 'ALL' || game === activeCategory);
+            card.style.display = (matchesSearch && matchesCategory) ? 'flex' : 'none';
+        });
+        AOS.refresh();
+    }
+
+    searchInput.addEventListener('input', filterProducts);
+    categoryBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            categoryBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            filterProducts();
+        });
+    });
+
+    function openVariantModal(key) {
+        const prod = productsData[key];
+        document.getElementById('modalTitle').innerText = prod.name;
+        document.getElementById('formSection').style.display = 'block';
+        document.getElementById('qrisSection').style.display = 'none';
+        let variantHtml = '';
+        prod.data.forEach((v, index) => {
+            let priceRaw = v[1].replace('K', '000');
+            let valValue = key + "|" + v[0] + "|" + priceRaw + "|" + prod.name;
+            let checkedAttr = index === 0 ? 'checked' : '';
+            variantHtml += `
+            <label class="radio-container">
+                <input type="radio" name="selected_validity_raw" value="${valValue}" required ${checkedAttr}>
+                <div class="radio-label">
+                    <span>${v[0]}</span>
+                    <span style="color:var(--light-purple); font-weight:bold; font-size:15px;">Rp ${v[1]}</span>
+                </div>
+            </label>`;
+        });
+        document.getElementById('variantContainer').innerHTML = variantHtml;
+        document.getElementById('payModal').style.display = 'flex';
+    }
+
+    // Membuka modal variant atau pembayaran
+    function closePay() { document.getElementById('payModal').style.display = 'none'; }
+    function showQRIS(e) { e.preventDefault(); document.getElementById('formSection').style.display = 'none'; document.getElementById('qrisSection').style.display = 'block'; }
+
+    function confirmToWA() {
+        let buyerName = document.getElementById('buyer_name').value;
+        let productName = document.getElementById('modalTitle').innerText;
+        let selectedVariant = document.querySelector('input[name="selected_validity_raw"]:checked');
+        let details = selectedVariant ? selectedVariant.value.split('|') : [];
+        let varianName = details[1] || '';
+        let price = details[2] || '';
+        let msg = `Halo Admin YANZZ H4X,\n\nSaya telah melakukan pembayaran dengan rincian:\n\n👤 *Nama:* ${buyerName}\n📦 *Produk:* ${productName} (${varianName})\n💰 *Total:* Rp ${price}\n\n[Sertakan Screenshot Bukti Transfer Di Sini]`;
+        let waLink = 'https://wa.me/6283891425432?text=' + encodeURIComponent(msg);
+        window.open(waLink, '_blank');
+    }
+</script>
+</body>
+</html>
