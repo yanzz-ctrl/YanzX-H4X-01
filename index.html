@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>YANZZ H4X - Premium Gaming Tools</title>
-<!-- FONTS & LIBRARY -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -869,12 +868,37 @@
             </form>
         </div>
         <div id="qrisSection" style="display: none; text-align: center;">
-            <p style="color: #e0dced; font-size: 14px; margin-bottom: 18px; font-weight: bold; font-family: var(--font-display);">Scan QRIS di bawah ini untuk membayar:</p>
-            <img src="https://i.ibb.co.com/jvhfbF3J/qr-ID1026479459236-11-04-26-177588212-1775882129599.jpg" alt="QRIS Payment" style="width: 100%; max-width: 260px; border-radius: 16px; margin-bottom: 18px; border: 2px solid var(--light-purple); box-shadow: 0 0 20px rgba(157, 78, 221, 0.3);">
-            <p style="color: #a59fb1; font-size: 12px; margin-bottom: 18px; line-height: 1.5;">Jika sudah transfer, klik tombol di bawah untuk konfirmasi via WhatsApp.</p>
-            <button onclick="confirmToWA()" class="buy-btn" style="color:#000; background: linear-gradient(135deg, #00e676, #00b359); border: none; padding: 14px; font-size: 14px; font-weight: 800; box-shadow: 0 5px 15px rgba(0, 230, 118, 0.3);">KONFIRMASI PEMBAYARAN</button>
+            <div style="text-align: left; margin-bottom: 18px; border-bottom: 1px solid rgba(157, 78, 221, 0.15); padding-bottom: 12px; font-family: var(--font-display); font-size: 13px; line-height: 1.6;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: #a59fb1;">Nama Produk:</span><span id="gatewayProdName" style="font-weight: 700;">-</span></div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="color: #a59fb1;">Varian:</span><span id="gatewayVariant" style="color: var(--light-purple); font-weight: 700;">-</span></div>
+                <div style="display: flex; justify-content: space-between;"><span style="color: #a59fb1;">Total Pembayaran:</span><span id="gatewayTotal" style="color: var(--light-purple); font-weight: 800; font-size: 14px;">-</span></div>
+            </div>
+            <img src="https://i.ibb.co.com/qLZgQhG4/IMG-20260617-175927.jpg" alt="QRIS Payment" style="width: 100%; max-width: 190px; border-radius: 16px; margin-bottom: 15px; border: 2px solid var(--light-purple); box-shadow: 0 0 20px rgba(157, 78, 221, 0.3); display: block; margin-left: auto; margin-right: auto; object-fit: contain;">
+            <div id="countdownContainer" style="margin-bottom: 18px; font-family: var(--font-display);">
+                <p style="color: #a59fb1; font-size: 11px; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.5px;">Sisa Waktu Pembayaran</p>
+                <div id="qrisTimer" style="font-size: 20px; font-weight: 900; color: var(--danger); letter-spacing: 1px;">10:00</div>
+            </div>
+            <button id="checkStatusBtn" onclick="triggerStatusCheck()" class="buy-btn" style="color:#000; background: linear-gradient(135deg, #00e676, #00b359); border: none; padding: 14px; font-size: 14px; font-weight: 800; box-shadow: 0 5px 15px rgba(0, 230, 118, 0.3); width: 100%;">CEK STATUS PEMBELIAN</button>
         </div>
         <a href="javascript:void(0)" style="display:block; margin-top:25px; color:#85828c; text-decoration:none; font-size:12px; font-weight:bold; letter-spacing:1.5px; text-align: center; font-family: var(--font-display); transition: var(--transition);" onclick="closePay()" onmouseover="this.style.color='#ff007f'" onmouseout="this.style.color='#85828c'">✖ BATALKAN</a>
+    </div>
+</div>
+
+<div id="statusModal" class="modal" style="z-index: 2500;">
+    <div class="modal-content" style="max-width: 400px; text-align: center; border-color: var(--primary-purple); box-shadow: 0 20px 45px rgba(0,0,0,0.9), 0 0 25px rgba(123, 44, 191, 0.3);">
+        <div style="font-size: 45px; color: var(--danger); margin-bottom: 15px; filter: drop-shadow(0 0 10px rgba(255, 0, 127, 0.4));">
+            <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+        <h3 style="font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--danger); letter-spacing: 0.5px; margin-bottom: 10px;">ANDA BELUM MEMBAYAR!</h3>
+        <p style="color: #a59fb1; font-size: 13px; line-height: 1.5; margin-bottom: 22px;">Sistem tidak mendeteksi mutasi pembayaran masuk untuk pemesanan ini. Silakan lunasi tagihan terlebih dahulu.</p>
+        <div style="display: flex; gap: 12px;">
+            <button onclick="recheckStatus()" class="buy-btn" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 5px; font-size: 13px;">
+                <i class="fa-solid fa-arrows-rotate"></i> CEK LAGI
+            </button>
+            <button onclick="backToQRIS()" class="buy-btn" style="flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 5px; font-size: 13px; color:#fff; background: linear-gradient(135deg, var(--primary-purple), var(--glow-purple)); border: none; box-shadow: 0 4px 12px rgba(123, 44, 191, 0.3);">
+                <i class="fa-solid fa-qrcode"></i> BAYAR
+            </button>
+        </div>
     </div>
 </div>
 
@@ -895,7 +919,7 @@
             ]
         },
         "drip_client_non_root": { 
-            name: "DRIP CLIENT", 
+            name: "DRIP CLIENT NON ROOT", 
             platform: "android", 
             game: "FF NON ROOT", 
             data: [["1 DAY", "15K"], ["3 DAY", "30K"], ["7 DAY", "55K"], ["15 DAY", "90K"], ["30 DAY", "130K"]] 
@@ -965,7 +989,7 @@
         "pato_team_orange": "https://i.ibb.co.com/DH8JWysd/1779596471598.png",
         "br_mods": "https://i.ibb.co.com/rTnXYnq/1779618176589.png",
         "lk_team": "https://i.ibb.co.com/hJTMsz4d/1779598151507.png",
-        "flyon_root": "https://i.ibb.co.com/B5f7wXJd/1779597839348.png",
+        "flyon_root": "https://i.ibb.co.com/B5f7wXJd/1779597739348.png",
         "pato_team_blue": "https://i.ibb.co.com/SXdKjg49/1779596748328.png",
         "fluorite_ff": "https://i.ibb.co.com/C34kkXpD/1779597121396.png",
         "gbox_ios": "https://i.ibb.co.com/355HPK8c/1779618446272.png"
@@ -980,9 +1004,8 @@
         card.setAttribute('data-key', key);
         card.setAttribute('data-game', prod.game.toUpperCase());
         card.setAttribute('data-name', prod.name.toUpperCase());
-        // Animasi fade-up dihapus agar kartu langsung muncul secara statis & instan
         card.onclick = () => openVariantModal(key);
-        const imgUrl = imageMap[key] || ''; // fallback kosong
+        const imgUrl = imageMap[key] || ''; 
         card.innerHTML = `
             <div class="product-card-img-wrap">
                 <img src="${imgUrl}" alt="${prod.name}" onerror="this.src='https://placehold.co/400x250/1e0c28/fff?text=${prod.name}'">
@@ -1078,9 +1101,84 @@
         document.getElementById('payModal').style.display = 'flex';
     }
 
-    // Membuka modal variant atau pembayaran
-    function closePay() { document.getElementById('payModal').style.display = 'none'; }
-    function showQRIS(e) { e.preventDefault(); document.getElementById('formSection').style.display = 'none'; document.getElementById('qrisSection').style.display = 'block'; }
+    // ========== PAYMENT GATEWAY LOGIC CONTROL ENGINE ==========
+    let paymentCountdownInterval = null;
+
+    function startPaymentCountdown() {
+        if(paymentCountdownInterval) clearInterval(paymentCountdownInterval);
+        let duration = 10 * 60; // 10 Menit dalam detik
+        const timerElement = document.getElementById('qrisTimer');
+        const statusBtn = document.getElementById('checkStatusBtn');
+        
+        statusBtn.disabled = false;
+        statusBtn.style.opacity = "1";
+        statusBtn.style.pointerEvents = "auto";
+
+        function refreshTimerUI() {
+            let mins = Math.floor(duration / 60);
+            let secs = duration % 60;
+            mins = mins < 10 ? '0' + mins : mins;
+            secs = secs < 10 ? '0' + secs : secs;
+            
+            timerElement.innerText = mins + ":" + secs;
+            
+            if(duration <= 0) {
+                clearInterval(paymentCountdownInterval);
+                timerElement.innerText = "QRIS TELAH KEDALUWARSA";
+                statusBtn.disabled = true;
+                statusBtn.style.opacity = "0.4";
+                statusBtn.style.pointerEvents = "none";
+            }
+            duration--;
+        }
+        refreshTimerUI();
+        paymentCountdownInterval = setInterval(refreshTimerUI, 1000);
+    }
+
+    function closePay() { 
+        document.getElementById('payModal').style.display = 'none'; 
+        if(paymentCountdownInterval) clearInterval(paymentCountdownInterval);
+    }
+
+    function showQRIS(e) { 
+        e.preventDefault(); 
+        
+        // Parsing data produk, varian, dan nominal pembayaran secara realtime
+        const prodName = document.getElementById('modalTitle').innerText;
+        const checkedOpt = document.querySelector('input[name="selected_validity_raw"]:checked');
+        let details = checkedOpt ? checkedOpt.value.split('|') : [];
+        let variantName = details[1] || '-';
+        let priceRaw = details[2] || '0';
+        let formattedPrice = parseInt(priceRaw).toLocaleString('id-ID');
+
+        document.getElementById('gatewayProdName').innerText = prodName;
+        document.getElementById('gatewayVariant').innerText = variantName;
+        document.getElementById('gatewayTotal').innerText = "Rp " + formattedPrice;
+
+        document.getElementById('formSection').style.display = 'none'; 
+        document.getElementById('qrisSection').style.display = 'block'; 
+        
+        startPaymentCountdown();
+    }
+
+    function triggerStatusCheck() {
+        document.getElementById('statusModal').style.display = 'flex';
+    }
+
+    function closeStatusModal() {
+        document.getElementById('statusModal').style.display = 'none';
+    }
+
+    function recheckStatus() {
+        closeStatusModal();
+        setTimeout(() => {
+            triggerStatusCheck();
+        }, 350); // Delay halus estetik simulasi enkripsi/pengecekan system gateway
+    }
+
+    function backToQRIS() {
+        closeStatusModal();
+    }
 
     function confirmToWA() {
         let buyerName = document.getElementById('buyer_name').value;
